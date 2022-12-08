@@ -1,14 +1,45 @@
+import { useState } from "react";
+import { Navigate } from "react-router-dom";
 import styles from "./Form.module.css";
 
+
+
 const LoginForm = () => {
+  
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+
   const handleSubmit = (e) => {
-    //Nesse handlesubmit você deverá usar o preventDefault,
-    //enviar os dados do formulário e enviá-los no corpo da requisição 
-    //para a rota da api que faz o login /auth
-    //lembre-se que essa rota vai retornar um Bearer Token e o mesmo deve ser salvo
-    //no localstorage para ser usado em chamadas futuras
-    //Com tudo ocorrendo corretamente, o usuário deve ser redirecionado a página principal,com react-router
-    //Lembre-se de usar um alerta para dizer se foi bem sucedido ou ocorreu um erro
+    setError("");
+    e.preventDefault();
+
+    const login = {
+      username: username,
+      password: password,
+    }
+
+    fetch("https://dhodonto.ctdprojetos.com.br/auth",
+    {
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      method: "POST",
+      body: JSON.stringify(login)
+    })
+    .then(res=>{
+        if(res.status === 200){
+          return res.json()
+        }
+        else{
+          throw Error("O nome de usuário ou a senha estão incorretos!");
+        }
+      })
+    .then(res=>{
+      localStorage.setItem('token', res.token);
+      //salvar do provider
+    })
+    .catch(erro=>setError(erro.toString()))
   };
 
   return (
@@ -24,6 +55,8 @@ const LoginForm = () => {
               className={`form-control ${styles.inputSpacing}`}
               placeholder="Login"
               name="login"
+              value={username}
+              onChange={(event)=>{setUsername(event.target.value)}}
               required
             />
             <input
@@ -31,8 +64,11 @@ const LoginForm = () => {
               placeholder="Password"
               name="password"
               type="password"
+              value={password}
+              onChange={(event)=>{setPassword(event.target.value)}}
               required
             />
+            <span>{error}</span>
             <button className="btn btn-primary" type="submit">
               Send
             </button>
