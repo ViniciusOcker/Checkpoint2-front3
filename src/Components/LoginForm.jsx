@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styles from "./Form.module.css";
 
 
 
 const LoginForm = () => {
+  const navigate = useNavigate();
   
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -37,6 +38,7 @@ const LoginForm = () => {
       })
     .then(res=>{
       localStorage.setItem('token', res.token);
+      navigate("/");
       //salvar do provider
     })
     .catch(erro=>setError(erro.toString()))
