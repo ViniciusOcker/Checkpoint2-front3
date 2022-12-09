@@ -1,15 +1,25 @@
+import { useEffect } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useGlobal } from "../hooks/globalContext";
 import styles from "./Form.module.css";
 
 
 
 const LoginForm = () => {
   const navigate = useNavigate();
+
+  const { global, dispatchGlobal } = useGlobal()
   
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+
+  useEffect(()=>{
+    if(global.auth !== null && global.auth !== undefined){
+      navigate("/");
+    }
+  },[])
 
   const handleSubmit = (e) => {
     setError("");
@@ -37,9 +47,11 @@ const LoginForm = () => {
         }
       })
     .then(res=>{
-      localStorage.setItem('token', res.token);
+      dispatchGlobal({
+        state: 'auth',
+        auth: res.token
+      })
       navigate("/");
-      //salvar do provider
     })
     .catch(erro=>setError(erro.toString()))
   };
