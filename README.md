@@ -1,4 +1,4 @@
-# ctd-fe3-template
+# Grupo 2 - Checkpoint 2 - Front End 3
 
 Exame Final de Frontend III
 

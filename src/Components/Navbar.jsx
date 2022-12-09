@@ -1,6 +1,9 @@
+import { useGlobal } from "../hooks/globalContext";
 import styles from "./Navbar.module.css";
 
 const Navbar = () => {
+
+  const { global} = useGlobal()
 
   return (
     <header className="sticky-top">
@@ -45,9 +48,15 @@ const Navbar = () => {
                 ao formulário de login
                 O botão de logout deverá ser testado darkmode
                 se sim, btn-dark, se não, btn-light */}
-                <a className="nav-link" href="/login">
-                  Login
-                </a>
+                {(global.auth === null || global.auth === undefined) ? 
+                  <a className="nav-link" href="/login">
+                    Login
+                  </a>
+                  :
+                  <a className="btn btn-light" href="/logout">
+                    Logout
+                  </a>
+                }
               </li>
               <li className={`nav-item`}>
                 {/* Ao ser clicado, esse botão mudará a aplicação para dark mode ou light mode.
