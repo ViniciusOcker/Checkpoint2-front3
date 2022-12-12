@@ -9,17 +9,17 @@ import styles from "./Form.module.css";
 const LoginForm = () => {
   const navigate = useNavigate();
 
-  const { global, dispatchGlobal } = useGlobal()
+  const { globalState, changeGlobal } = useGlobal()
   
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
   useEffect(()=>{
-    if(global.auth !== null && global.auth !== undefined){
-      navigate("/");
+    if(globalState.auth !== ''){
+      navigate("/home");
     }
-  },[])
+  })
 
   const handleSubmit = (e) => {
     setError("");
@@ -47,11 +47,11 @@ const LoginForm = () => {
         }
       })
     .then(res=>{
-      dispatchGlobal({
+      changeGlobal({
         state: 'auth',
         auth: res.token
       })
-      navigate("/");
+      navigate("/home");
     })
     .catch(erro=>setError(erro.toString()))
   };

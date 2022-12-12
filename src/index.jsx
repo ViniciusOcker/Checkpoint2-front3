@@ -4,13 +4,14 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
 
 import ReactDOM from "react-dom/client";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, redirect, RouterProvider } from "react-router-dom";
 
 import Home from "./Routes/Home";
 import Login from "./Routes/Login";
 
 import App from "./App";
 import { GlobalProvider } from "./hooks/globalContext";
+import Logout from "./Routes/Logout";
 
 const router = createBrowserRouter([
   {
@@ -19,12 +20,20 @@ const router = createBrowserRouter([
     children:[
       {
         path: "/",
+        loader: () => redirect('/home')
+      },
+      {
+        path: "/home",
         element: <Home />,
       },
       {
         path: "/login",
         element: <Login />,
       },
+      {
+        path: "/logout",
+        element: <Logout />
+      }
     ]
   }
 ]);

@@ -3,7 +3,7 @@ import styles from "./Navbar.module.css";
 
 const Navbar = () => {
 
-  const { global} = useGlobal()
+  const { globalState } = useGlobal()
 
   return (
     <header className="sticky-top">
@@ -37,7 +37,7 @@ const Navbar = () => {
             <ul className="navbar-nav mb-2 mb-sm-0">
               <li className={`nav-item ${styles.navBarLink}`}>
                 {/* Ao clicar, o usuário deve ser redirecionado a home, com react-router */}
-                <a className="nav-link" href="/">
+                <a className="nav-link" href="/home">
                   Home
                 </a>
               </li>
@@ -48,7 +48,7 @@ const Navbar = () => {
                 ao formulário de login
                 O botão de logout deverá ser testado darkmode
                 se sim, btn-dark, se não, btn-light */}
-                {(global.auth === null || global.auth === undefined) ? 
+                {(globalState.auth === '') ? 
                   <a className="nav-link" href="/login">
                     Login
                   </a>
