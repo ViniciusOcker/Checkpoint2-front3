@@ -6,7 +6,7 @@ const Home = () => {
   const [dentistas, setDentistas] = useState([]);
 
   useEffect(() => {
-    fetch('http://dhodonto.ctdprojetos.com.br/dentista')
+    fetch('https://dhodonto.ctdprojetos.com.br/dentista')
     .then(res=>{
       if(res.status === 200){
         return res.json()
