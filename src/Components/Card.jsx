@@ -16,6 +16,7 @@ const Card = (props) => {
           <a href={`/dentist/${props.dados.matricula}`}>
             <h5 className={`card-title ${styles.title}`}>{`${props.dados.nome} ${props.dados.sobrenome}`}</h5>
           </a>
+          <p className="card-text">{props.dados.usuario.username}</p>
         </div>
       </div>
     </>
