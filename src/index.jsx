@@ -12,6 +12,7 @@ import Login from "./Routes/Login";
 import App from "./App";
 import { GlobalProvider } from "./hooks/globalContext";
 import Logout from "./Routes/Logout";
+import Detail from "./Routes/Detail";
 
 const router = createBrowserRouter([
   {
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
       {
         path: "/logout",
         element: <Logout />
+      },
+      {
+        path: "/dentist/:uuidDentist",
+        element: <Detail />
       }
     ]
   }

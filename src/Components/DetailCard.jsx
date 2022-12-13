@@ -1,18 +1,44 @@
 import { useEffect } from "react";
 import ScheduleFormModal from "./ScheduleFormModal";
 import styles from "./DetailCard.module.css";
+import { useState } from "react";
+import { useMatch } from "react-router-dom";
 
 const DetailCard = () => {
+  
+  const [dentist, setDentist] = useState({
+    nome: null,
+    sobrenome: null,
+    usuario: {
+      username: null,
+    }
+  });
+  const uuidDentist = useMatch("/dentist/:uuidDentist").params.uuidDentist;
 
   useEffect(() => {
-    //Nesse useEffect, você vai fazer um fetch na api passando o 
-    //id do dentista que está vindo do react-router e carregar os dados em algum estado
+
+    fetch(`https://dhodonto.ctdprojetos.com.br/dentista?matricula=${uuidDentist}`,
+    {
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      method: "GET"
+    })
+    .then(res=>{
+        if(res.status === 200){
+          return res.json()
+        }
+        else{
+          throw Error("Erro interno do servidor!");
+        }
+      })
+    .then(res=>{
+      setDentist(res);
+    })
   }, []);
   return (
-    //As instruções que estão com {''} precisam ser 
-    //substituídas com as informações que vem da api
     <>
-      <h1>Detail about Dentist {'Nome do Dentista'} </h1>
+      <h1>Detail about Dentist {dentist.nome} </h1>
       <section className="card col-sm-12 col-lg-6 container">
         {/* //Na linha seguinte deverá ser feito um teste se a aplicação
         // está em dark mode e deverá utilizar o css correto */}
@@ -28,12 +54,12 @@ const DetailCard = () => {
           </div>
           <div className="col-sm-12 col-lg-6">
             <ul className="list-group">
-              <li className="list-group-item">Nome: {'Nome do Dentista'}</li>
+              <li className="list-group-item">Nome: {dentist.nome}</li>
               <li className="list-group-item">
-                Sobrenome: {'Sobrenome do Dentista'}
+                Sobrenome: {dentist.sobrenome}
               </li>
               <li className="list-group-item">
-                Usuário: {'Nome de usuário do Dentista'}
+                Usuário: {dentist.usuario.username}
               </li>
             </ul>
             <div className="text-center">
