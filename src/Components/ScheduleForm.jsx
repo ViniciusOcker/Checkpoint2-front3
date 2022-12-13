@@ -79,6 +79,18 @@ const ScheduleForm = () => {
         {
           throw Error("Não foi possivel marcar a consulta! tente em outro horario");
         }
+        else if(res.status === 403){
+          if(globalState.auth == ""){
+            throw Error("Acesso negado! Por favor logasse para pode marcar uma consulta");
+          }
+          else{
+            changeGlobal({
+                state: 'auth',
+                auth: ''
+            });
+            throw Error("Acesso negado! Esta sessão está expirada! Faça login novamente...");
+          }
+        }
         else{
           throw Error("Erro interno do servidor!");
         }
