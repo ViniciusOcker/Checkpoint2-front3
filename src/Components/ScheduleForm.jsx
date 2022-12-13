@@ -85,7 +85,6 @@ const ScheduleForm = () => {
       })
     .then(res=>{
       alert("A consulta foi marcada com sucesso");
-      window.location.assign("/home");
     })
     .catch(erro=>alert(erro));
   };
@@ -163,6 +162,8 @@ const ScheduleForm = () => {
             {/* //Na linha seguinte deverá ser feito um teste se a aplicação
         // está em dark mode e deverá utilizar o css correto */}
             <button
+              data-bs-toggle="modal"
+              data-bs-target="#exampleModal"
               className={`btn btn-light ${styles.button
                 }`}
               type="submit"
