@@ -14,11 +14,13 @@ import { GlobalProvider } from "./hooks/globalContext";
 import Logout from "./Routes/Logout";
 import Detail from "./Routes/Detail";
 
+import { ThemeProvider } from "./hooks/useTheme";
+
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
-    children:[
+    children: [
       {
         path: "/",
         loader: () => redirect('/home')
@@ -46,8 +48,10 @@ const router = createBrowserRouter([
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <GlobalProvider>
-      <RouterProvider router={router} />
-    </GlobalProvider>
+    <ThemeProvider>
+      <GlobalProvider>
+        <RouterProvider router={router} />
+      </GlobalProvider>
+    </ThemeProvider>
   </React.StrictMode>
 );
