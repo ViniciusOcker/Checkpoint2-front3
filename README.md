@@ -2,11 +2,16 @@
 
 Equipe:
 
-Vinicius Ocker Fagundes
+* Vinicius Ocker Fagundes
+
+* Ederson Oliveira
+
+* Rodrigo Gottshall
+
+
+
 
 Exame Final de Frontend III
-Ederson Oliveira
-Rodrigo Gottshall
 
 ## Índice
 * [Requisitos](#requisitos)
