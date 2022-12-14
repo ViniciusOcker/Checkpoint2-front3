@@ -1,6 +1,12 @@
 # Grupo 2 - Checkpoint 2 - Front End 3
 
+Equipe:
+
+Vinicius Ocker Fagundes
+
 Exame Final de Frontend III
+Ederson Oliveira
+Rodrigo Gottshall
 
 ## Índice
 * [Requisitos](#requisitos)
