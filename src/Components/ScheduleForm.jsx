@@ -16,33 +16,33 @@ const ScheduleForm = () => {
 
   const navigate = useNavigate();
 
-  function obterDados(tipo, funcao){
+  function obterDados(tipo, funcao) {
     fetch(`https://dhodonto.ctdprojetos.com.br/${tipo}`,
-    {
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      method: "GET"
-    })
-    .then(res=>{
-        if(res.status === 200){
+      {
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        method: "GET"
+      })
+      .then(res => {
+        if (res.status === 200) {
           return res.json()
         }
-        else{
+        else {
           throw Error("Erro interno do servidor!");
         }
       })
-    .then(res=>{
-      if(tipo == 'dentista'){
-        funcao(res)
-        setDentistaState(res[0].matricula);
-      }
-      else{
-        funcao(res.body);
-        setPacienteState(res.body[0].matricula);
-      }
-    })
-    .catch(erro=>alert(erro));
+      .then(res => {
+        if (tipo == 'dentista') {
+          funcao(res)
+          setDentistaState(res[0].matricula);
+        }
+        else {
+          funcao(res.body);
+          setPacienteState(res.body[0].matricula);
+        }
+      })
+      .catch(erro => alert(erro));
   }
 
   useEffect(() => {
@@ -54,51 +54,50 @@ const ScheduleForm = () => {
     event.preventDefault();
 
     fetch(`https://dhodonto.ctdprojetos.com.br/consulta`,
-    {
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${globalState.auth}`
-      },
-      method: "POST",
-      body: JSON.stringify({
-        "paciente":{
-          "matricula": pacienteState
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${globalState.auth}`
         },
-        "dentista":{
-          "matricula": dentistaState
-        },
-        "dataHoraAgendamento": data
+        method: "POST",
+        body: JSON.stringify({
+          "paciente": {
+            "matricula": pacienteState
+          },
+          "dentista": {
+            "matricula": dentistaState
+          },
+          "dataHoraAgendamento": data
+        })
       })
-    })
-    .then(res=>{
-      console.log(res);
-        if(res.status === 200){
+      .then(res => {
+        console.log(res);
+        if (res.status === 200) {
           return res.json()
         }
-        else if(res.status === 400)
-        {
+        else if (res.status === 400) {
           throw Error("Não foi possivel marcar a consulta! tente em outro horario");
         }
-        else if(res.status === 403){
-          if(globalState.auth == ""){
+        else if (res.status === 403) {
+          if (globalState.auth == "") {
             throw Error("Acesso negado! Por favor logasse para pode marcar uma consulta");
           }
-          else{
+          else {
             changeGlobal({
-                state: 'auth',
-                auth: ''
+              state: 'auth',
+              auth: ''
             });
             throw Error("Acesso negado! Esta sessão está expirada! Faça login novamente...");
           }
         }
-        else{
+        else {
           throw Error("Erro interno do servidor!");
         }
       })
-    .then(res=>{
-      alert("A consulta foi marcada com sucesso");
-    })
-    .catch(erro=>alert(erro));
+      .then(res => {
+        alert("A consulta foi marcada com sucesso");
+      })
+      .catch(erro => alert(erro));
   };
 
   return (
@@ -115,20 +114,19 @@ const ScheduleForm = () => {
               <label htmlFor="dentist" className="form-label">
                 Dentist
               </label>
-              <select className="form-select" name="dentist" id="dentist" onChange={event=>setDentistaState(event.target.value)}>
-                {dentistas.map(dentista=>
-                  {
-                    if(dentista.matricula == dentistaState){
-                      return <option key={dentista.matricula} value={dentista.matricula} select="true">
-                        {`${dentista.nome} ${dentista.sobrenome}`}
-                      </option>
-                    }
-                    else{
-                      return <option key={dentista.matricula} value={dentista.matricula}>
-                        {`${dentista.nome} ${dentista.sobrenome}`}
-                      </option>
-                    }
+              <select className="form-select" name="dentist" id="dentist" onChange={event => setDentistaState(event.target.value)}>
+                {dentistas.map(dentista => {
+                  if (dentista.matricula == dentistaState) {
+                    return <option key={dentista.matricula} value={dentista.matricula} select="true">
+                      {`${dentista.nome} ${dentista.sobrenome}`}
+                    </option>
                   }
+                  else {
+                    return <option key={dentista.matricula} value={dentista.matricula}>
+                      {`${dentista.nome} ${dentista.sobrenome}`}
+                    </option>
+                  }
+                }
                 )}
               </select>
             </div>
@@ -136,20 +134,19 @@ const ScheduleForm = () => {
               <label htmlFor="patient" className="form-label">
                 Patient
               </label>
-              <select className="form-select" name="patient" id="patient" onChange={event=>setPacienteState(event.target.value)}>
-                {pacientes.map(paciente=>
-                  {
-                    if(paciente.matricula == pacienteState){
-                      return <option key={paciente.matricula} value={paciente.matricula} select="true">
-                        {`${paciente.nome} ${paciente.sobrenome}`}
-                      </option>
-                    }
-                    else{
-                      return <option key={paciente.matricula} value={paciente.matricula}>
-                        {`${paciente.nome} ${paciente.sobrenome}`}
-                      </option>
-                    }
+              <select className="form-select" name="patient" id="patient" onChange={event => setPacienteState(event.target.value)}>
+                {pacientes.map(paciente => {
+                  if (paciente.matricula == pacienteState) {
+                    return <option key={paciente.matricula} value={paciente.matricula} select="true">
+                      {`${paciente.nome} ${paciente.sobrenome}`}
+                    </option>
                   }
+                  else {
+                    return <option key={paciente.matricula} value={paciente.matricula}>
+                      {`${paciente.nome} ${paciente.sobrenome}`}
+                    </option>
+                  }
+                }
                 )}
               </select>
             </div>
@@ -176,8 +173,7 @@ const ScheduleForm = () => {
             <button
               data-bs-toggle="modal"
               data-bs-target="#exampleModal"
-              className={`btn btn-light ${styles.button
-                }`}
+              className={(globalState.theme === 'dark') ? `btn btn-secondary` : 'btn btn-light'}
               type="submit"
             >
               Schedule
