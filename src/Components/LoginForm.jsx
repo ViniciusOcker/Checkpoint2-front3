@@ -4,19 +4,17 @@ import { useNavigate } from "react-router-dom";
 import { useGlobal } from "../hooks/globalContext";
 import styles from "./Form.module.css";
 
-
-
 const LoginForm = () => {
   const navigate = useNavigate();
 
   const { globalState, changeGlobal } = useGlobal()
-  
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  useEffect(()=>{
-    if(globalState.auth !== ''){
+  useEffect(() => {
+    if (globalState.auth !== '') {
       navigate("/home");
     }
   })
@@ -31,29 +29,29 @@ const LoginForm = () => {
     }
 
     fetch("https://dhodonto.ctdprojetos.com.br/auth",
-    {
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      method: "POST",
-      body: JSON.stringify(login)
-    })
-    .then(res=>{
-        if(res.status === 200){
+      {
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        method: "POST",
+        body: JSON.stringify(login)
+      })
+      .then(res => {
+        if (res.status === 200) {
           return res.json()
         }
-        else{
+        else {
           throw Error("O nome de usuário ou a senha estão incorretos!");
         }
       })
-    .then(res=>{
-      changeGlobal({
-        state: 'auth',
-        auth: res.token
+      .then(res => {
+        changeGlobal({
+          state: 'auth',
+          auth: res.token
+        })
+        navigate("/home");
       })
-      navigate("/home");
-    })
-    .catch(erro=>setError(erro.toString()))
+      .catch(erro => setError(erro.toString()))
   };
 
   return (
@@ -61,7 +59,7 @@ const LoginForm = () => {
       {/* //Na linha seguinte deverá ser feito um teste se a aplicação
         // está em dark mode e deverá utilizar o css correto */}
       <div
-        className={`text-center card container ${styles.card}`}
+        className={(globalState.theme === 'dark') ? `text-center card container ${styles.card} ${styles.cardDark}` : `text-center card container ${styles.card}`}
       >
         <div className={`card-body ${styles.CardBody}`}>
           <form onSubmit={handleSubmit}>
@@ -70,7 +68,7 @@ const LoginForm = () => {
               placeholder="Login"
               name="login"
               value={username}
-              onChange={(event)=>{setUsername(event.target.value)}}
+              onChange={(event) => { setUsername(event.target.value) }}
               required
             />
             <input
@@ -79,7 +77,7 @@ const LoginForm = () => {
               name="password"
               type="password"
               value={password}
-              onChange={(event)=>{setPassword(event.target.value)}}
+              onChange={(event) => { setPassword(event.target.value) }}
               required
             />
             <span>{error}</span>
