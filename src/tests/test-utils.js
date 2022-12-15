@@ -34,6 +34,14 @@ describe('Footer componente', () => {
     })
 });  
 
+describe('Navbar button login', () => {
+    it('Deveria ser renderizado na tela', () => {
+        renderWithContext(<Login />)
+
+        expect(screen.getByText('Login')).toBeInTheDocument()
+    })
+}); 
+
 
 // Only for testing individual routes as /dentist/:id
 export const renderWithRouter = (ui, { route = '/', path = '/' }) => {
