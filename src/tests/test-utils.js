@@ -5,6 +5,7 @@ import Home from "../Routes/Home"
 import Detail from "../Routes/Detail"
 import Login from "../Routes/Login"
 import App from "../App"
+import Footer from "../Components/Footer"
 
 const API_URL = 'https://dhodonto.ctdprojetos.com.br'
 
@@ -42,6 +43,20 @@ describe('Navbar button login', () => {
     })
 }); 
 
+describe('Navbar button home', () => {
+    it('Deveria ser renderizado na tela', () => {
+        renderWithContext(<Home />)
+
+        expect(screen.getByText('Home')).toBeInTheDocument()
+    })
+}); 
+
+describe('Footer button voltar para o topo', () => {
+    it('Deveria ser renderizado na tela', () => {
+        renderWithContext(<Footer />)
+        expect(screen.getByText('Voltar para o topo')).toBeInTheDocument()
+    })
+}); 
 
 // Only for testing individual routes as /dentist/:id
 export const renderWithRouter = (ui, { route = '/', path = '/' }) => {
