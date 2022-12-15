@@ -17,7 +17,7 @@ const ScheduleForm = () => {
   const navigate = useNavigate();
 
   function obterDados(tipo, funcao) {
-    fetch(`https://dhodonto.ctdprojetos.com.br/${tipo}`,
+    fetch(`${globalState.api}/${tipo}`,
       {
         headers: {
           'Content-Type': 'application/json'

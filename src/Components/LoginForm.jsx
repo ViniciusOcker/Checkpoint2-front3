@@ -65,7 +65,7 @@ const LoginForm = () => {
       password: password,
     }
 
-    fetch("https://dhodonto.ctdprojetos.com.br/auth",
+    fetch(`${globalState.api}/auth`,
       {
         headers: {
           'Content-Type': 'application/json'

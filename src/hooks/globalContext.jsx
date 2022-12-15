@@ -20,13 +20,15 @@ export function GlobalProvider(props) {
         }
         setGlobalState({
             theme: themeLocalStorage,
-            auth: authLocalStorage
+            auth: authLocalStorage,
+            api: globalState.api,
         })
     }, [])
 
     const [globalState, setGlobalState] = useState({
         theme: 'dark',
-        auth: ''
+        auth: '',
+        api: 'https://dhodonto.ctdprojetos.com.br',
     })
 
     function changeGlobal(action) {
@@ -36,13 +38,15 @@ export function GlobalProvider(props) {
                     localStorage.setItem('theme', 'dark')
                     setGlobalState({
                         theme: 'dark',
-                        auth: globalState.auth
+                        auth: globalState.auth,
+                        api: globalState.api,
                     })
                 } else {
                     localStorage.setItem('theme', 'light')
                     setGlobalState({
                         theme: 'light',
-                        auth: globalState.auth
+                        auth: globalState.auth,
+                        api: globalState.api,
                     })
                 }
                 break;
@@ -50,7 +54,8 @@ export function GlobalProvider(props) {
                 localStorage.setItem('auth', action.auth)
                 setGlobalState({
                     auth: action.auth,
-                    theme: globalState.theme
+                    theme: globalState.theme,
+                    api: globalState.api,
                 })
                 break;
             default:
