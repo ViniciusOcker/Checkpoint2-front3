@@ -11,7 +11,10 @@ const LoginForm = () => {
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [errorLogin, setErrorLogin] = useState("");
+  const [errorUsername, setErrorUsername] = useState("");
+  const [errorPassword, setErrorPassword] = useState("");
+  const [disabledButton, setDisabledButton] = useState("");
 
   useEffect(() => {
     if (globalState.auth !== '') {
@@ -19,8 +22,42 @@ const LoginForm = () => {
     }
   })
 
+  useEffect(()=>{
+    setErrorLogin("");
+    if(username.length < 5 ){
+      setErrorUsername("O nome de usuário está muito curto");
+    }
+    else if(username.length > 18 ){
+      setErrorUsername("O nome de usuário está muito longo");
+    }
+    else{
+      setErrorUsername("");
+    }
+  },[username]);
+
+  useEffect(()=>{
+    setErrorLogin("");
+    if(password.length < 5 ){
+      setErrorPassword("A senha está muito curto");
+    }
+    else if(password.length > 18 ){
+      setErrorPassword("A senha está muito longo");
+    }
+    else{
+      setErrorPassword("");
+    }
+  },[password]);
+
+  useEffect(()=>{
+    if(errorLogin === "" && errorPassword === "" && errorLogin === "" ){
+      setDisabledButton(false);
+    }
+    else{
+      setDisabledButton(true);
+    }
+  },[errorLogin,errorUsername,errorPassword])
+
   const handleSubmit = (e) => {
-    setError("");
     e.preventDefault();
 
     const login = {
@@ -51,13 +88,11 @@ const LoginForm = () => {
         })
         navigate("/home");
       })
-      .catch(erro => setError(erro.toString()))
+      .catch(erro => setErrorLogin(erro.toString()))
   };
 
   return (
     <>
-      {/* //Na linha seguinte deverá ser feito um teste se a aplicação
-        // está em dark mode e deverá utilizar o css correto */}
       <div
         className={(globalState.theme === 'dark') ? `text-center card container ${styles.card} ${styles.cardDark}` : `text-center card container ${styles.card}`}
       >
@@ -71,6 +106,7 @@ const LoginForm = () => {
               onChange={(event) => { setUsername(event.target.value) }}
               required
             />
+            {(errorUsername !== "")?<span>{errorUsername}</span>:null}
             <input
               className={`form-control ${styles.inputSpacing}`}
               placeholder="Password"
@@ -80,8 +116,9 @@ const LoginForm = () => {
               onChange={(event) => { setPassword(event.target.value) }}
               required
             />
-            <span>{error}</span>
-            <button className="btn btn-primary" type="submit">
+            {(errorPassword !== "")?<span>{errorPassword}</span>:null}
+            {(errorLogin !== "")?<span>{errorLogin}</span>:null}
+            <button className="btn btn-primary" type="submit" disabled={( disabledButton )}>
               Send
             </button>
           </form>
