@@ -53,7 +53,7 @@ const ScheduleForm = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    fetch(`https://dhodonto.ctdprojetos.com.br/consulta`,
+    fetch(`${globalState.api}/consulta`,
       {
         headers: {
           'Content-Type': 'application/json',

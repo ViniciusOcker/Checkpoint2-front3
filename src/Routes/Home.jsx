@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import Card from "../Components/Card";
+import { useGlobal } from "../hooks/globalContext";
 
 const Home = () => {
 
+  const {globalState} = useGlobal();
   const [dentistas, setDentistas] = useState([]);
 
   useEffect(() => {
-    fetch('https://dhodonto.ctdprojetos.com.br/dentista')
+    fetch(`${globalState.api}/dentista`)
     .then(res=>{
       if(res.status === 200){
         return res.json()

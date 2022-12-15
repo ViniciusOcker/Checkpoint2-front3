@@ -17,7 +17,7 @@ const DetailCard = () => {
 
   useEffect(() => {
 
-    fetch(`https://dhodonto.ctdprojetos.com.br/dentista?matricula=${uuidDentist}`,
+    fetch(`${globalState.api}/dentista?matricula=${uuidDentist}`,
     {
       headers: {
         'Content-Type': 'application/json'
