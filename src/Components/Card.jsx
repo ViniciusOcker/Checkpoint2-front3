@@ -1,12 +1,13 @@
 import styles from "./Card.module.css";
+import { useGlobal } from '../hooks/globalContext';
 
 const Card = (props) => {
-
+  const { globalState } = useGlobal()
   return (
     <>
       {/* //Na linha seguinte deverá ser feito um teste se a aplicação
         // está em dark mode e deverá utilizar o css correto */}
-      <div className={`card`}>
+      <div className={(globalState.theme === 'dark') ? `card ${styles.cardDark}` : 'card'}>
         <img
           className="card-img-top"
           src="/images/doctor.jpg"
