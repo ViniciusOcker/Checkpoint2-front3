@@ -1,6 +1,8 @@
 # Grupo 2 - Checkpoint 2 - Front End 3
 
-Equipe:
+Exame Final de Frontend III
+
+## Equipe
 
 * Vinicius Ocker Fagundes
 
@@ -8,12 +10,8 @@ Equipe:
 
 * Rodrigo Gottshall
 
-
-
-
-Exame Final de Frontend III
-
 ## Índice
+
 * [Requisitos](#requisitos)
   * [Condições mínimas de aprovação](#condições-mínimas-de-aprovação)
   * [Aspectos que modificam o valor da nota final](#aspectos-que-modificam-o-valor-da-nota-final)
@@ -22,7 +20,6 @@ Exame Final de Frontend III
 * [API](#api)
 * [Entrega](#entrega)
   * [Formato de Entrega](#formato-de-entrega)
-
 
 ## Requisitos
 
@@ -44,6 +41,7 @@ git remote add origin https://github.com/<nomedousuario>/<nomedoprojeto>
 # Envie o repositório para o github
 git push -u origin main
 ```
+
 ### Condições mínimas de aprovação
 
 As seguintes condições são requisitos mínimos necessários para a aprovação final:
@@ -53,28 +51,32 @@ As seguintes condições são requisitos mínimos necessários para a aprovaçã
 * O projeto deve ser desenvolvido utilizando Javascript com React.JS.
 * O projeto deve contar com ao menos 5 testes unitários escritos para a aplicação. Para isso, deve ser feito com Jest e React Testing Library. Será considerado a importância desses testes como em um projeto real.
 * Se espera que a página de login, contenha os fluxos de validação necessários (mínimo 2 validações), para um submit correto do formulário.
-* Nos casos em que é requirido fazer uma estilização, deverá realizar tendo em vista o tema do contexto global. 
+* Nos casos em que é requirido fazer uma estilização, deverá realizar tendo em vista o tema do contexto global.
 
 ### Aspectos que modificam o valor da nota final
 
 Os seguintes aspetos são extra ao requisito de aprovação mínima que serão tidos em conta para a majoração da nota final, desde que a sua correta implementação:
 
 **Validações**
+
 * Será valorizada a adição de validações de fluxos alternativos ao normal (mais de duas validações) e o correto tratamento de erros em diferentes situações.
 
 **Testing unitário**
+
 * Será avaliado o uso correto dos testes unitários e o aumento do número de testes adicionados (mais de 5 casos de teste).
 
 **Estilos**
+
 * O estilo de outras seções do App será valorizado (fora do estilo obrigatório das rotas baseadas no tema)
 
 **Boas Práticas**
+
 * Atenção especial será dada ao uso de boas práticas, melhorias de desempenho (implementando useMemo) e reutilização de código
 
 ## Funcionalidades
 
 Ver [Funcionalidades](docs/funcionalidades.md).
-    
+
 ## Desenvolvimento
 
 Ver [Desenvolvimento](docs/desenvolvimento.md).
