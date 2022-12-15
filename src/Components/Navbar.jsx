@@ -1,17 +1,15 @@
 import { useGlobal } from "../hooks/globalContext";
 import styles from "./Navbar.module.css";
-import { useTheme } from "../hooks/useTheme";
 
 const Navbar = () => {
-  const { globalState } = useGlobal()
-  const { theme, changeTheme } = useTheme()
+  const { globalState, changeGlobal } = useGlobal()
 
   return (
     <header className="sticky-top">
       {/* //Na linha seguinte deverá ser feito um teste se a aplicação
         // está em dark mode e deverá utilizar navbar-dark bg-dark ou navbar-light bg-light*/}
       <nav
-        className={`navbar navbar-expand-sm navbar-${theme} bg-${theme}`}
+        className={`navbar navbar-expand-sm navbar-${globalState.theme} bg-${globalState.theme}`}
         aria-label="Third navbar example"
       >
         <div className="container">
@@ -65,12 +63,13 @@ const Navbar = () => {
                  Na linha seguinte deverá ser feito um teste se a aplicação
                  está em dark mode e deverá utilizar o icone ☀ ou 🌙 e btn-dark ou btn-light*/}
                 <button
-                  className={`btn btn-${theme}`}
-                  onClick={() => changeTheme(
-                    localStorage.getItem('theme') === 'light' ? 'dark' : 'light'
-                  )}
+                  className={`btn btn-${globalState.theme}`}
+                  onClick={() => changeGlobal({
+                    state: 'theme'
+                  })
+                  }
                 >
-                  {theme === 'dark' ? '🌙' : '☀'}
+                  {globalState.theme === 'dark' ? '🌙' : '☀'}
                 </button>
               </li>
             </ul>

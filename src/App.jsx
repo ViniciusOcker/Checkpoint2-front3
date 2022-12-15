@@ -2,14 +2,14 @@
 import { Outlet } from "react-router-dom";
 import Footer from "./Components/Footer";
 import Navbar from "./Components/Navbar";
-import { useTheme } from "./hooks/useTheme";
+import { useGlobal } from './hooks/globalContext';
 
 function App() {
-  const { theme } = useTheme()
+  const { globalState } = useGlobal();
 
   return (
     <>
-      <div className={`app ${theme}`}>
+      <div className={`app ${globalState.theme}`}>
         <Navbar />
         <main>
           <Outlet />

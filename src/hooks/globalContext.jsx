@@ -6,15 +6,15 @@ const GlobalContext = createContext()
 
 export function GlobalProvider(props) {
 
-    useEffect(()=>{
+    useEffect(() => {
         let themeLocalStorage = localStorage.getItem('theme');
-        if(themeLocalStorage === null){
+        if (themeLocalStorage === null) {
             themeLocalStorage = 'dark'
             localStorage.setItem('theme', 'dark');
         }
 
         let authLocalStorage = localStorage.getItem('auth');
-        if(authLocalStorage === null){
+        if (authLocalStorage === null) {
             authLocalStorage = ''
             localStorage.setItem('auth', '');
         }
@@ -22,7 +22,7 @@ export function GlobalProvider(props) {
             theme: themeLocalStorage,
             auth: authLocalStorage
         })
-    },[])
+    }, [])
 
     const [globalState, setGlobalState] = useState({
         theme: 'dark',
@@ -32,28 +32,18 @@ export function GlobalProvider(props) {
     function changeGlobal(action) {
         switch (action.state) {
             case 'theme':
-                switch(action.theme){
-                    case 'dark':
-                        localStorage.setItem('theme', 'dark')
-                        setGlobalState({
-                            theme: 'dark',
-                            auth: globalState.auth
-                        })
-                        break;
-                    case 'light':
-                        localStorage.setItem('theme', 'light')
-                        setGlobalState({
-                            theme: 'light',
-                            auth: globalState.auth
-                        })
-                        break;
-                    default:
-                        localStorage.setItem('theme', 'dark')
-                        setGlobalState({
-                            theme: 'dark',
-                            auth: globalState.auth
-                        })
-                        break;
+                if (globalState.theme === 'light') {
+                    localStorage.setItem('theme', 'dark')
+                    setGlobalState({
+                        theme: 'dark',
+                        auth: globalState.auth
+                    })
+                } else {
+                    localStorage.setItem('theme', 'light')
+                    setGlobalState({
+                        theme: 'light',
+                        auth: globalState.auth
+                    })
                 }
                 break;
             case 'auth':
@@ -68,9 +58,9 @@ export function GlobalProvider(props) {
         }
     }
 
-    return(
-        <GlobalContext.Provider value={{globalState, changeGlobal}}>
-            { props.children }
+    return (
+        <GlobalContext.Provider value={{ globalState, changeGlobal }}>
+            {props.children}
         </GlobalContext.Provider>
     )
 

@@ -14,8 +14,6 @@ import { GlobalProvider } from "./hooks/globalContext";
 import Logout from "./Routes/Logout";
 import Detail from "./Routes/Detail";
 
-import { ThemeProvider } from "./hooks/useTheme";
-
 const router = createBrowserRouter([
   {
     path: "/",
@@ -48,10 +46,8 @@ const router = createBrowserRouter([
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <ThemeProvider>
-      <GlobalProvider>
-        <RouterProvider router={router} />
-      </GlobalProvider>
-    </ThemeProvider>
+    <GlobalProvider>
+      <RouterProvider router={router} />
+    </GlobalProvider>
   </React.StrictMode>
 );
